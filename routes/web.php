@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\JobController;
+use App\Http\Controllers\SendEmailController;
+use App\Http\Controllers\UserRegistrationController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -46,5 +48,14 @@ Route::get('/admin', function () {
 Route::get('/admin/jobs', function () {
     return view('admin.jobs');
 })->middleware(['auth', 'isAdmin']);
+
+Route::get('/send-mail', [SendEmailController::class,'index'])->name('kirim-email');
+
+Route::post('/post-email', [SendEmailController::class, 'store'])->name('post-email');
+
+Route::get('/register', [UserRegistrationController::class, 'showRegisterForm'])
+    ->name('register');
+    
+Route::post('/register', [UserRegistrationController::class, 'register']);
 
 require __DIR__.'/auth.php';
